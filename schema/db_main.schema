@@ -25,3 +25,18 @@ CREATE TABLE `users_password_reset` (
   KEY `by_user` (`user_id`),
   KEY `by_timestamp` (`created`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `TumblrUsers`;
+
+CREATE TABLE `TumblrUsers` (
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `tumblr_username` varchar(20) NOT NULL,
+  `following` int(10) UNSIGNED NOT NULL,
+  `likes` int(10) UNSIGNED NOT NULL,
+  `default_post_format` varchar(10) NOT NULL,
+  `oauth_token` char(64) NOT NULL,
+  `oauth_secret` char(64) NOT NULL,  
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `by_tumblr_username` (`tumblr_username`),
+  KEY `by_token` (`oauth_token`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
