@@ -5,14 +5,13 @@
 	#
 
 	loadlib("http");
+	require_once('tumblroauth/tumblroauth.php');
 	
 	#################################################################
 
-	function tumblr_api_auth_url($extra=null){
+	function tumblr_api_get_auth_url(){
 		
 		session_start();
-
-		require_once('tumblroauth/tumblroauth.php');
 
 		$consumer_key = $GLOBALS['cfg']['tumblr_api_key'];
 		$consumer_secret = $GLOBALS['cfg']['tumblr_api_secret'];
@@ -29,15 +28,61 @@
 		switch ($tum_oauth->http_code) {
 		  case 200:
 		    $url = $tum_oauth->getAuthorizeURL($token);
-		    header('Location: ' . $url);
-
 		    break;
 		default:
 		    echo 'Could not connect to Tumblr. Refresh the page or try again later.';
 		}
-		exit();
+		
+		return $url;
 		
 	}
+	
+	#################################################################
+	
+	function tumblr_api_get_auth_token(){
 		
+		session_start();
+
+		$consumer_key = $GLOBALS['cfg']['tumblr_api_key'];
+		$consumer_secret = $GLOBALS['cfg']['tumblr_api_secret'];
+
+		$tum_oauth = new TumblrOAuth($consumer_key, $consumer_secret, $_SESSION['request_token'], $_SESSION['request_token_secret']);
+
+		$access_token = $tum_oauth->getAccessToken($_REQUEST['oauth_verifier']);
+
+		unset($_SESSION['request_token']);
+		unset($_SESSION['request_token_secret']);
+
+		if (200 == $tum_oauth->http_code) {
+	  		// good to go
+		} else {
+	  		die('Unable to authenticate'); // TODO: do something better than this here
+		}
+		
+		return $access_token;
+	}
+	
+	#################################################################
+		
+	function tumblr_api_get_user_info($access_token){
+		
+		session_start();
+
+		$consumer_key = $GLOBALS['cfg']['tumblr_api_key'];
+		$consumer_secret = $GLOBALS['cfg']['tumblr_api_secret'];
+
+		$tum_oauth = new TumblrOAuth($consumer_key, $consumer_secret, $access_token['oauth_token'], $access_token['oauth_token_secret']);
+
+		$userinfo = $tum_oauth->get('user/info');
+
+		// Check for an error.
+		if (200 == $tum_oauth->http_code) {
+		  // good to go
+		} else {
+		  die('Unable to get info');
+		}
+			
+		return $userinfo;	
+	}	
 			
 ?>

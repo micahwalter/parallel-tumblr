@@ -3,7 +3,7 @@
 	include("include/init.php");
 	loadlib("tumblr_api");
 	
-	$redir = (get_str('redir')) ? get_str('redir') : '/';
+	$redir = $GLOBALS['cfg']['abs_root_url'] . get_str('redir');
 	
 	if ($GLOBALS['cfg']['user']['id']){
 		header("location: {$redir}");
@@ -15,14 +15,11 @@
 		exit;
 	}
 	
-	$extra = array();
 
-	if ($redir = get_str('redir')){
-		$extra['redir'] = $redir;
-	}
-	
-	
-	$url = tumblr_api_auth_url($extra);
-	
+	# TO DO: pass redir around...
+
+	$url = tumblr_api_get_auth_url();
+
+	header("location: {$url}");
 	exit();
 ?>

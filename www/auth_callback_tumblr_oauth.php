@@ -19,43 +19,14 @@
 		exit();
 	}
 	
-	$code = get_str("code");
-	$redir = get_str("redir");
-	
 	// now we do the tumblr auth stuff
+	
+	$access_token = tumblr_api_get_auth_token();
 		
-	session_start();
-	require_once('include/tumblroauth/tumblroauth.php');
-
-	$consumer_key = $GLOBALS['cfg']['tumblr_api_key'];
-	$consumer_secret = $GLOBALS['cfg']['tumblr_api_secret'];
-
-	$tum_oauth = new TumblrOAuth($consumer_key, $consumer_secret, $_SESSION['request_token'], $_SESSION['request_token_secret']);
-
-	$access_token = $tum_oauth->getAccessToken($_REQUEST['oauth_verifier']);
-
-	unset($_SESSION['request_token']);
-	unset($_SESSION['request_token_secret']);
-
-	if (200 == $tum_oauth->http_code) {
-  		// good to go
-	} else {
-  		die('Unable to authenticate'); // TODO: do something better than this here
-	}
-
 	// if we are this far, we have authed to tumblr, yay!
 	// now we need to get the user's info
 	
-	$tum_oauth = new TumblrOAuth($consumer_key, $consumer_secret, $access_token['oauth_token'], $access_token['oauth_token_secret']);
-
-	$userinfo = $tum_oauth->get('user/info');
-
-	// Check for an error.
-	if (200 == $tum_oauth->http_code) {
-	  // good to go
-	} else {
-	  die('Unable to get info');
-	}
+	$userinfo = tumblr_api_get_user_info($access_token);
 	
 	$username = $userinfo->response->user->name;
 	$likes = $userinfo->response->user->likes;
@@ -65,7 +36,7 @@
 	$secret = $access_token['oauth_token_secret'];
 	
 	# The first thing we do is check to see if we already have an account
-	# matching that user's Flickr NSID.
+	# matching that user's tumblr username.
 
 	$tumblr_user = tumblr_users_get_by_username($username);
 
@@ -111,7 +82,7 @@
 	}
 
 	# Hello, new user! This part will create entries in two separate
-	# databases: Users and FlickrUsers that are joined by the primary
+	# databases: Users and TumblrUsers that are joined by the primary
 	# key on the Users table.
 
 	else {
@@ -149,10 +120,8 @@
 
 	# Okay, now finish logging the user in (setting cookies, etc.) and
 	# redirecting them to some specific page if necessary.
-
-	$redir = (isset($extra['redir'])) ? $extra['redir'] : '';
 	
-	login_do_login($user, $redir);
+	login_do_login($user);
 	exit();
 	
 	
