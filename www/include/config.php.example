@@ -8,7 +8,10 @@
 	#
 	# Things you may want to change in a hurry
 	#
-
+	
+	$GLOBALS['cfg']['tumblr_api_key'] = 'YOUR TUMBLR CONSUMER KEY';
+	$GLOBALS['cfg']['tumblr_api_secret'] = 'YOUR TUMBLR CONSUMER SECRET';
+	
 	$GLOBALS['cfg']['site_name'] = 'flamework';
 	$GLOBALS['cfg']['environment'] = 'dev';
 

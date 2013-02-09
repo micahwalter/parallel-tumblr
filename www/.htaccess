@@ -50,7 +50,7 @@ RewriteEngine on
 # Login stuff
 
 RewriteRule  ^signup$			signup.php		[L]
-RewriteRule  ^signin$			signin.php	    [L]
+RewriteRule  ^signin$			/signin_tumblr_tumblrauth.php?%{QUERY_STRING}		[L]
 RewriteRule  ^signout$			signout.php		[L]
 RewriteRule  ^checkcookie$		checkcookie.php	[L]
 
