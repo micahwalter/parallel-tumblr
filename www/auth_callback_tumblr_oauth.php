@@ -100,9 +100,9 @@
 			$GLOBALS['smarty']->display("page_auth_callback_tumblr_tumblrauth.txt");
 			exit();
 		}
-
+	
 		$tumblr_user = tumblr_users_create_user(array(
-			'user_id' => $user['id'],
+			'user_id' => $user['user']['id'],
 			'tumblr_username' => $username,
 			'likes' => $likes,
 			'following' => $following,
@@ -110,7 +110,7 @@
 			'oauth_token' => $token,
 			'oauth_secret' => $secret,
 		));
-
+		
 		if (! $tumblr_user){
 			$GLOBALS['error']['dberr_tumblruser'] = 1;
 			$GLOBALS['smarty']->display("page_auth_callback_tumblr_tumblrauth.txt");
