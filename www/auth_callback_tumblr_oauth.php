@@ -6,6 +6,7 @@
 	loadlib("random");
 	loadlib("tumblr_api");
 	loadlib("tumblr_users");
+	loadlib("tumblr_blogs");
 	
 
 	if ($GLOBALS['cfg']['user']['id']){
@@ -34,6 +35,8 @@
 	$default_post_format = $userinfo->response->user->default_post_format;
 	$token = $access_token['oauth_token'];
 	$secret = $access_token['oauth_token_secret'];
+	
+	$tumblr_blogs = $userinfo->response->user->blogs;
 	
 	# The first thing we do is check to see if we already have an account
 	# matching that user's tumblr username.
@@ -70,6 +73,13 @@
 				$GLOBALS['smarty']->display("page_auth_callback_tumblr_tumblrauth.txt");
 				exit();
 			}
+			
+			#$blog = array(
+			#	'user_id' => $tumblr_user['user_id'],
+			#	'name' => $tumblr_blogs[0]->name
+			#);
+
+			# $rsp = tumblr_blogs_create_blog($blog);
 		}
 	}
 
@@ -120,7 +130,6 @@
 
 	# Okay, now finish logging the user in (setting cookies, etc.) and
 	# redirecting them to some specific page if necessary.
-	
 	login_do_login($user);
 	exit();
 	

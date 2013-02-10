@@ -40,3 +40,32 @@ CREATE TABLE `TumblrUsers` (
   UNIQUE KEY `by_tumblr_username` (`tumblr_username`),
   KEY `by_token` (`oauth_token`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `TumblrBlogs`;
+
+CREATE TABLE `TumblrBlogs` (
+	`user_id` int(11) UNSIGNED NOT NULL,
+	`name` varchar(255) NOT NULL,
+	`description` varchar(511) NOT NULL,
+    `url` varchar(255) NOT NULL,
+    `title` varchar(255) NOT NULL,
+    `primary` int(10) unsigned NOT NULL,
+    `followers` int(10) unsigned NOT NULL,
+    `tweet` int(10) unsigned NOT NULL,
+    `facebook` int(10) unsigned NOT NULL,
+    `type` int(10) unsigned NOT NULL,
+	`admin` int(10) unsigned NOT NULL,
+	`updated` int(11) UNSIGNED NOT NULL,
+	`posts` int(11) UNSIGNED NOT NULL,
+	`messages` int(10) unsigned NOT NULL,
+	`queue` int(10) unsigned NOT NULL,
+	`drafts` int(10) unsigned NOT NULL,
+	`share_likes` int(10) unsigned NOT NULL,
+	`ask` int(10) unsigned NOT NULL,
+	`ask_anon` int(10) unsigned NOT NULL,
+	`facebook_opengraph_enabled` int(10) unsigned NOT NULL,
+	PRIMARY KEY (`user_id`),
+	UNIQUE KEY `by_name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
