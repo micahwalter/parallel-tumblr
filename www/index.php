@@ -4,7 +4,7 @@
 	#
 
 	include('include/init.php');
-
+	loadlib("tumblr_users");
 
 	#
 	# this is so we can test the logging output
@@ -24,7 +24,12 @@
 		$ret = http_get("http://google.com");
 	}
 
-
+	if ($GLOBALS['cfg']['user']['id']){
+		$tumblr_user = tumblr_users_get_by_username($GLOBALS['cfg']['user']['username']);
+		$GLOBALS['smarty']->assign('tumblr_user', $tumblr_user);
+		
+	}
+	
 	#
 	# output
 	#
