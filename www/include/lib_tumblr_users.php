@@ -36,14 +36,14 @@
 
 	# This creates rows in both the 'users' and 'tumblrUsers' tables
 
-	function tumblr_users_register_user($tumblr_username, $following, $likes, $default_post_format, $oauth_token='', $oauth_secret=''){
+	function tumblr_users_register_user($userinfo, $access_token){
 
 		$password = random_string(32);
 
-		$email = "{$tumblr_username}@donotsend-tumblr.com";
+		$email = "{$userinfo->response->user->name}@donotsend-tumblr.com";
 
 		$user = users_create_user(array(
-			"username" => $tumblr_username,
+			"username" => $userinfo->response->user->name,
 			"email" => $email,
 			"password" => $password,
 		));
@@ -53,13 +53,13 @@
 		}
 
 		$tumblr_user = tumblr_users_create_user(array(
-			'user_id' => $user['id'],
-			'oauth_key' => $oauth_key,
-			'oauth_secret' => $oauth_secret,
-			'tumblr_username' => $tumblr_username,
-			'following' => $following,
-			'likes' => $likes,
-			'default_post_format' => $default_post_format
+			'user_id' => $user['user']['id'],
+			'oauth_token' => $access_token['oauth_token'],
+			'oauth_secret' => $access_token['oauth_token_secret'],
+			'tumblr_username' => $userinfo->response->user->name,
+			'following' => $userinfo->response->user->following,
+			'likes' => $userinfo->response->user->likes,
+			'default_post_format' => $userinfo->response->user->default_post_format
 		));
 
 		if (! $tumblr_user){

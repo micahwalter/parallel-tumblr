@@ -28,16 +28,10 @@
 	// now we need to get the user's info
 	
 	$userinfo = tumblr_api_get_user_info($access_token);
-	
 	$username = $userinfo->response->user->name;
-	$likes = $userinfo->response->user->likes;
-	$following = $userinfo->response->user->following;
-	$default_post_format = $userinfo->response->user->default_post_format;
 	$token = $access_token['oauth_token'];
 	$secret = $access_token['oauth_token_secret'];
-	
-	$tumblr_blogs = $userinfo->response->user->blogs;
-	
+		
 	# The first thing we do is check to see if we already have an account
 	# matching that user's tumblr username.
 
@@ -59,9 +53,9 @@
 		if ($change){
 
 			$update = array(
-				'likes' => $likes,
-				'following' => $following,
-				'default_post_format' => $default_post_format,
+				'likes' => $userinfo->response->user->likes,
+				'following' => $userinfo->response->user->following,
+				'default_post_format' => $userinfo->response->user->default_post_format,
 				'oauth_token' => $token,
 				'oauth_secret' => $secret
 			);
@@ -74,12 +68,6 @@
 				exit();
 			}
 			
-			#$blog = array(
-			#	'user_id' => $tumblr_user['user_id'],
-			#	'name' => $tumblr_blogs[0]->name
-			#);
-
-			# $rsp = tumblr_blogs_create_blog($blog);
 		}
 	}
 
@@ -97,39 +85,21 @@
 
 	else {
 
-		$password = random_string(32);
+		$rsp = tumblr_users_register_user($userinfo, $access_token);
 
-		$user = users_create_user(array(
-			"username" => $username,
-			"email" => "{$username}@donotsend-tumblr.com",
-			"password" => $password,
-		));
+		if (! $rsp['ok']){
 
-		if (! $user){
-			$GLOBALS['error']['dberr_user'] = 1;
-			$GLOBALS['smarty']->display("page_auth_callback_tumblr_tumblrauth.txt");
+			$GLOBALS['error'][ $rsp['error'] ] = 1;
+			$GLOBALS['smarty']->display("page_auth_callback_tumblr_tumblroauth.txt");
 			exit();
 		}
-	
-		$tumblr_user = tumblr_users_create_user(array(
-			'user_id' => $user['user']['id'],
-			'tumblr_username' => $username,
-			'likes' => $likes,
-			'following' => $following,
-			'default_post_format' => $default_post_format,
-			'oauth_token' => $token,
-			'oauth_secret' => $secret,
-		));
-		
-		if (! $tumblr_user){
-			$GLOBALS['error']['dberr_tumblruser'] = 1;
-			$GLOBALS['smarty']->display("page_auth_callback_tumblr_tumblrauth.txt");
-			exit();
-		}
+
+		$user = $rsp['user']['user'];
 	}
 
 	# Okay, now finish logging the user in (setting cookies, etc.) and
 	# redirecting them to some specific page if necessary.
+
 	login_do_login($user);
 	exit();
 	
