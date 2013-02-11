@@ -5,7 +5,8 @@
 
 	include('include/init.php');
 
-
+	$GLOBALS['smarty']->assign('page_title', 'About');
+	
 	#
 	# output
 	#

@@ -1,0 +1,11 @@
+{include file='inc_head.txt' nav_tab='sync'}
+
+<div class="container">
+	<h1>Sync</h1>
+
+	<p>Sync your stuff here.</p>
+	
+	<pre>{$userinfo|@print_r}</pre>
+</div>
+
+{include file='inc_foot.txt'}

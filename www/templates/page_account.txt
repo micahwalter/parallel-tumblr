@@ -8,6 +8,7 @@
 
 	<ul>
 		<li><a href="/account/delete">Delete your account</a></li>
+		<li><a href="/account/sync">Sync with your Tumblr account</a></li>
 	</ul>
 </div>
 

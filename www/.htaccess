@@ -49,21 +49,16 @@ RewriteEngine on
 
 # Login stuff
 
-RewriteRule  ^signup$			signup.php		[L]
 RewriteRule  ^signin$			signin_tumblr_tumblrauth.php?%{QUERY_STRING}		[L]
 RewriteRule  ^signout$			signout.php		[L]
 RewriteRule  ^checkcookie$		checkcookie.php	[L]
 
-# Password retrieval stuff
-
-RewriteRule ^forgot$			forgot.php		[L]
-RewriteRule ^reset/([a-zA-Z0-9]+)$	reset.php?reset=$1	[L,QSA]
-
 # Account stuff
 
 RewriteRule  ^account$			account.php		[L]
-RewriteRule  ^account/delete$		account_delete.php	[L]
+RewriteRule  ^account/delete$	account_delete.php	[L]
+RewriteRule  ^account/sync		account_sync.php [l]
 
 # General pages
 
-RewriteRule ^about$			about.php 		[L,QSA]
+RewriteRule  ^about$			about.php 		[L,QSA]

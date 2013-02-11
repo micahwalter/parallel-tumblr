@@ -5,6 +5,7 @@
 
 	include('include/init.php');
 	loadlib("tumblr_users");
+	loadlib("tumblr_blogs");
 
 	#
 	# this is so we can test the logging output
@@ -27,6 +28,9 @@
 	if ($GLOBALS['cfg']['user']['id']){
 		$tumblr_user = tumblr_users_get_by_username($GLOBALS['cfg']['user']['username']);
 		$GLOBALS['smarty']->assign('tumblr_user', $tumblr_user);
+		$blogs = tumblr_blogs_get_by_user_id($GLOBALS['cfg']['user']['id']);
+		$blogs = $blogs['rows'];
+		$GLOBALS['smarty']->assign('blogs', $blogs);
 		
 	}
 	

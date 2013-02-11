@@ -5,6 +5,15 @@
 {if $cfg.user.id}
 	<h1>Welcome, {$cfg.user.username|escape}</h1>
 	<p>You've liked {$tumblr_user.likes} things and you're following {$tumblr_user.following} blogs</p>
+	
+	<ul>
+	{foreach from=$blogs item=blog}
+	    <li><a href="{$blog.url}">{$blog.title}</a></li>
+	{/foreach}
+	</ul>
+	
+	
+	<pre>{$blogs|@print_r}</pre>
 {else}
     <h1>parallel-tumblr</h1>
     <p>it's all your tumbling</p>

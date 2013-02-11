@@ -24,10 +24,7 @@
 
 		return $blog;
 	}
-
-	#################################################################
 	
-
 	#################################################################
 
 	function tumblr_blogs_update_blogs(&$tumblr_blogs, $update){
@@ -58,5 +55,46 @@
 	}
 
 	#################################################################
+	
+	function tumblr_blogs_sync_blogs($userinfo){
+		
+		$blogs = $userinfo->response->user->blogs;
+		
+		foreach ($blogs as $element ){
+			$blog = tumblr_blogs_create_blog(array(
+				'user_id' => $GLOBALS['cfg']['user']['id'],
+				'name' => $element->name,
+				'url' => $element->url,
+				'followers' => $element->followers,
+				'primary' => $element->primary,
+				'title' => $element->title,
+				'description' => $element->description,
+				'admin' => $element->admin,
+				'updated' => $element->updated,
+				'posts' => $element->posts,
+				'messages' => $element->messages,
+				'queue' => $element->queue,
+				'drafts' => $element->drafts,
+				'share_likes' => $element->share_likes,
+				'ask' => $element->ask,
+				'ask_anon' => $element->ask_anon,
+				'tweet' => $element->tweet,
+				'facebook' => $element->facebook,
+				'facebook_opengraph_enabled' => $element->facebook_opengraph_enabled,
+				'type' => $element->type,
+				));
+			}
+	}
+	
+	#################################################################
+
+	function tumblr_blogs_get_by_user_id($user_id){
+
+		$enc_id = AddSlashes($user_id);
+
+		$sql = "SELECT * FROM TumblrBlogs WHERE user_id='{$enc_id}'";
+		return db_fetch($sql);
+	}
+	
 	
 ?>

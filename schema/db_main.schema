@@ -51,9 +51,9 @@ CREATE TABLE `TumblrBlogs` (
     `title` varchar(255) NOT NULL,
     `primary` int(10) unsigned NOT NULL,
     `followers` int(10) unsigned NOT NULL,
-    `tweet` int(10) unsigned NOT NULL,
-    `facebook` int(10) unsigned NOT NULL,
-    `type` int(10) unsigned NOT NULL,
+    `tweet` varchar(1) NOT NULL,
+    `facebook` varchar(1) NOT NULL,
+    `type` varchar(10) NOT NULL,
 	`admin` int(10) unsigned NOT NULL,
 	`updated` int(11) UNSIGNED NOT NULL,
 	`posts` int(11) UNSIGNED NOT NULL,
@@ -63,9 +63,9 @@ CREATE TABLE `TumblrBlogs` (
 	`share_likes` int(10) unsigned NOT NULL,
 	`ask` int(10) unsigned NOT NULL,
 	`ask_anon` int(10) unsigned NOT NULL,
-	`facebook_opengraph_enabled` int(10) unsigned NOT NULL,
-	PRIMARY KEY (`user_id`),
-	UNIQUE KEY `by_name` (`name`)
+	`facebook_opengraph_enabled` varchar(1) NOT NULL,
+	PRIMARY KEY (`name`),
+    UNIQUE KEY `by_name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
