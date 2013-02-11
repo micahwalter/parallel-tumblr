@@ -2,6 +2,16 @@
 
 	#################################################################
 
+	function tumblr_blogs_get_by_name($blogname){
+
+		$enc_blogname = AddSlashes($blogname);
+
+		$sql = "SELECT * FROM TumblrBlogs WHERE name='{$enc_blogname}'";
+		return db_single(db_fetch($sql));
+	}	
+
+	#################################################################
+
 	function tumblr_blogs_create_blog($blog){
 
 		$hash = array();
@@ -27,22 +37,22 @@
 	
 	#################################################################
 
-	function tumblr_blogs_update_blogs(&$tumblr_blogs, $update){
+	function tumblr_blogs_update_blog($blog){
 
 		$hash = array();
 		
-		foreach ($update as $k => $v){
+		foreach ($blog as $k => $v){
 			$hash[$k] = AddSlashes($v);
 		}
 
-		$enc_id = AddSlashes($tumblr_blogs['user_id']);
-		$where = "user_id='{$enc_id}'";
+		$enc_id = AddSlashes($blog['name']);
+		$where = "name='{$enc_id}'";
 
 		$rsp = db_update('TumblrBlogs', $hash, $where);
 
 		if ($rsp['ok']){
 
-			$tumblr_blogs = array_merge($tumblr_blogs, $update);
+			#$tumblr_blogs = array_merge($tumblr_blogs, $update);
 
 			# $cache_key = "tumblr_user_{$tumblr_user['tumblr_id']}";
 			# cache_unset($cache_key);
@@ -61,29 +71,58 @@
 		$blogs = $userinfo->response->user->blogs;
 		
 		foreach ($blogs as $element ){
-			$blog = tumblr_blogs_create_blog(array(
-				'user_id' => $GLOBALS['cfg']['user']['id'],
-				'name' => $element->name,
-				'url' => $element->url,
-				'followers' => $element->followers,
-				'primary' => $element->primary,
-				'title' => $element->title,
-				'description' => $element->description,
-				'admin' => $element->admin,
-				'updated' => $element->updated,
-				'posts' => $element->posts,
-				'messages' => $element->messages,
-				'queue' => $element->queue,
-				'drafts' => $element->drafts,
-				'share_likes' => $element->share_likes,
-				'ask' => $element->ask,
-				'ask_anon' => $element->ask_anon,
-				'tweet' => $element->tweet,
-				'facebook' => $element->facebook,
-				'facebook_opengraph_enabled' => $element->facebook_opengraph_enabled,
-				'type' => $element->type,
+			
+			$blog = tumblr_blogs_get_by_name($element->name);
+			
+			if(! $blog ) {
+				$rsp = tumblr_blogs_create_blog(array(
+					'user_id' => $GLOBALS['cfg']['user']['id'],
+					'name' => $element->name,
+					'url' => $element->url,
+					'followers' => $element->followers,
+					'primary' => $element->primary,
+					'title' => $element->title,
+					'description' => $element->description,
+					'admin' => $element->admin,
+					'updated' => $element->updated,
+					'posts' => $element->posts,
+					'messages' => $element->messages,
+					'queue' => $element->queue,
+					'drafts' => $element->drafts,
+					'share_likes' => $element->share_likes,
+					'ask' => $element->ask,
+					'ask_anon' => $element->ask_anon,
+					'tweet' => $element->tweet,
+					'facebook' => $element->facebook,
+					'facebook_opengraph_enabled' => $element->facebook_opengraph_enabled,
+					'type' => $element->type,
+				)); 
+			} else {
+				$rsp = tumblr_blogs_update_blog(array(
+					'user_id' => $GLOBALS['cfg']['user']['id'],
+					'name' => $element->name,
+					'url' => $element->url,
+					'followers' => $element->followers,
+					'primary' => $element->primary,
+					'title' => $element->title,
+					'description' => $element->description,
+					'admin' => $element->admin,
+					'updated' => $element->updated,
+					'posts' => $element->posts,
+					'messages' => $element->messages,
+					'queue' => $element->queue,
+					'drafts' => $element->drafts,
+					'share_likes' => $element->share_likes,
+					'ask' => $element->ask,
+					'ask_anon' => $element->ask_anon,
+					'tweet' => $element->tweet,
+					'facebook' => $element->facebook,
+					'facebook_opengraph_enabled' => $element->facebook_opengraph_enabled,
+					'type' => $element->type,
 				));
 			}
+		}
+		return 0;
 	}
 	
 	#################################################################
