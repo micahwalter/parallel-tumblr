@@ -77,5 +77,14 @@ CREATE TABLE `TumblrFollowing` (
 	`updated` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `TumblrFollowers`;
+
+CREATE TABLE `TumblrFollowers` (
+	`blog_name` varchar(255) NOT NULL,
+	`name` varchar(255) NOT NULL,
+	`url` varchar(255) NOT NULL,
+	`updated` int(11) UNSIGNED NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
 
 

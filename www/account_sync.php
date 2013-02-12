@@ -7,6 +7,7 @@
 	loadlib("tumblr_users");
 	loadlib("tumblr_blogs");
 	loadlib("tumblr_following");
+	loadlib("tumblr_followers");
 	loadlib("tumblr_api");
 
 	$GLOBALS['smarty']->assign('page_title', 'Sync');
@@ -37,15 +38,39 @@
 			$offset = $offset + 20;
 		};
 		
-		### some notes here on doing an "api_key" call vs. an oAuth call. whatever
-		# $api_key = $GLOBALS['cfg']['tumblr_api_key'];
-		# $params = array(
-		#	'api_key' => $api_key,
-		# );
+		###### get followers for all your blogs
+		$blogs_count = count($userinfo->response->user->blogs);
+		$i = 0;
+		while ($i < $blogs_count ) {
+			$regex = '/(?<!href=["\'])http:\/\//';
+			$base_hostname = preg_replace($regex, '', $userinfo->response->user->blogs[$i]->url);		
+			
+			$offset = 0;
+			$api_key = $GLOBALS['cfg']['tumblr_api_key'];
+			$params = array(
+				'api_key' => $api_key,
+				'offset' => $offset,
+				'limit' => 20
+			);
 		
-		# $blog_info = tumblr_api_get_call($access_token, 'blog/micahwalter.tumblr.com/info', $params);		
+			$followers = tumblr_api_get_call($access_token, 'blog/' . $base_hostname . 'followers', $params);
+			$total_followers = $followers->response->total_users;
+		
+			while($offset < $total_following) {	
+				$params = array(
+					'api_key' => $api_key,
+					'offset' => $offset,
+					'limit' => 20
+				);
+		
+			$followers = tumblr_api_get_call($access_token, 'blog/' . $base_hostname . 'followers' , $params );
+			$rsp = tumblr_followers_sync_followers($followers, $userinfo->response->user->blogs[$i]->name);
+			$offset = $offset + 20;
+			};
+			$i++;
+		};		
 				
-		$GLOBALS['smarty']->assign('userinfo', $offset);
+		$GLOBALS['smarty']->assign('userinfo', $rsp);
 	}
 		
 	#
