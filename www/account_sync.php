@@ -16,12 +16,20 @@
 			'oauth_token' => $tumblr_user['oauth_token'],
 			'oauth_token_secret' => $tumblr_user['oauth_secret']
 			);
-		$userinfo = tumblr_api_get_user_info($access_token);		
+		
+		$userinfo = tumblr_api_call($access_token, 'user/info');		
+		
 		$rsp = tumblr_blogs_sync_blogs($userinfo);
+		
+		$params = array(
+			'limit' => '1'
+		);
+		
+		$likes = tumblr_api_call($access_token, 'user/likes', $params);
 		
 		# $blogs = tumblr_blogs_get_by_user_id($GLOBALS['cfg']['user']['id']);
 		
-		$GLOBALS['smarty']->assign('userinfo', $rsp);
+		$GLOBALS['smarty']->assign('userinfo', $likes);
 	}
 		
 	#

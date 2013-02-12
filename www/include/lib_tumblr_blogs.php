@@ -120,7 +120,8 @@
 					'facebook_opengraph_enabled' => $element->facebook_opengraph_enabled,
 					'type' => $element->type,
 				));
-			}
+				
+			} 
 		}
 		return 0;
 	}

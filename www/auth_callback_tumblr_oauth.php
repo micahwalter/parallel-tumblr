@@ -27,7 +27,7 @@
 	// if we are this far, we have authed to tumblr, yay!
 	// now we need to get the user's info
 	
-	$userinfo = tumblr_api_get_user_info($access_token);
+	$userinfo = tumblr_api_call($access_token, 'user/info');
 	$username = $userinfo->response->user->name;
 	$token = $access_token['oauth_token'];
 	$secret = $access_token['oauth_token_secret'];

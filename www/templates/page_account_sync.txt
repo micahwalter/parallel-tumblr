@@ -5,7 +5,7 @@
 
 	<p>Sync your stuff here.</p>
 	
-	<pre>{$userinfo|@print_r}</pre>
+	<pre>{$userinfo|@dumper}</pre>
 </div>
 
 {include file='inc_foot.txt'}
