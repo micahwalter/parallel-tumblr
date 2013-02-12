@@ -4,8 +4,7 @@
 	<h1>Sync</h1>
 
 	<p>Sync your stuff here.</p>
-	
-	<pre>{$userinfo|@dumper}</pre>
+	<img src="{$userinfo}" />
 </div>
 
 {include file='inc_foot.txt'}

@@ -110,5 +110,23 @@
 		return $api_response;	
 		
 	}
+	
+	#################################################################
+		
+	function tumblr_api_get_avatar($access_token, $method, $params = NULL){
+		
+		session_start();
+
+		$consumer_key = $GLOBALS['cfg']['tumblr_api_key'];
+		$consumer_secret = $GLOBALS['cfg']['tumblr_api_secret'];
+
+		$tum_oauth = new TumblrOAuth($consumer_key, $consumer_secret, $access_token['oauth_token'], $access_token['oauth_token_secret']);
+
+		$api_response = $tum_oauth->get($method, $params);
+	
+		return $api_response;	
+		
+	}
+
 			
 ?>

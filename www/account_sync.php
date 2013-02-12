@@ -56,7 +56,7 @@
 			$followers = tumblr_api_get_call($access_token, 'blog/' . $base_hostname . 'followers', $params);
 			$total_followers = $followers->response->total_users;
 		
-			while($offset < $total_following) {	
+			while($offset < $total_followers) {	
 				$params = array(
 					'api_key' => $api_key,
 					'offset' => $offset,
@@ -69,8 +69,16 @@
 			};
 			$i++;
 		};		
-				
-		$GLOBALS['smarty']->assign('userinfo', $rsp);
+		
+		
+		###### get blog-info
+		$params = array(
+			'api_key' => $api_key,
+		);
+		
+		$avatar = tumblr_api_get_avatar($access_token, 'blog/micahwalter.tumblr.com/avatar' , $params );
+		$avatar = $avatar->response->avatar_url;		
+		$GLOBALS['smarty']->assign('userinfo', $avatar);
 	}
 		
 	#
