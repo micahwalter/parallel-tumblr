@@ -5,6 +5,7 @@
 
 	<p>Sync your stuff here.</p>
 	<img src="{$userinfo}" />
+	<pre>{$posts|@dumper}</pre>
 </div>
 
 {include file='inc_foot.txt'}

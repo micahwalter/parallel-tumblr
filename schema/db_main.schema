@@ -87,4 +87,23 @@ CREATE TABLE `TumblrFollowers` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `TumblrPosts`;
+
+CREATE TABLE `TumblrPosts` (
+	`blog_name` varchar(255) NOT NULL,
+	`post_id` int(11) UNSIGNED NOT NULL,
+	`post_url` varchar(255) NOT NULL,
+	`type` varchar(10) NOT NULL,
+	`timestamp` int(11) UNSIGNED NOT NULL,
+	`date` varchar(10) NOT NULL,
+	format
+	reblog_key
+	bookmarklet
+	mobile
+	source_url
+	source_title
+	liked
+	state
+	
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

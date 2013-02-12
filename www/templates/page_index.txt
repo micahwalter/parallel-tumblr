@@ -3,7 +3,7 @@
 <div class="container">
   <div class="hero-unit">
 {if $cfg.user.id}
-	<h1>Welcome, {$cfg.user.username|escape}</h1>
+	<h1><img src="{$avatar}"/> Welcome, {$cfg.user.username|escape}</h1>
 	<p>You've liked {$tumblr_user.likes} things and you're following {$tumblr_user.following} blogs</p>
 	
 	<ul>
@@ -12,8 +12,7 @@
 	{/foreach}
 	</ul>
 	
-	
-	<pre>{$blogs|@dumper}</pre>
+	<pre>{$avatar|@dumper}</pre>
 {else}
     <h1>parallel-tumblr</h1>
     <p>it's all your tumbling</p>

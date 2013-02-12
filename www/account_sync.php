@@ -79,6 +79,14 @@
 		$avatar = tumblr_api_get_avatar($access_token, 'blog/micahwalter.tumblr.com/avatar' , $params );
 		$avatar = $avatar->response->avatar_url;		
 		$GLOBALS['smarty']->assign('userinfo', $avatar);
+		
+		$params = array(
+			'api_key' => $api_key,
+			'notes_info' => 'true'
+		);
+		
+		$posts = tumblr_api_get_call($access_token, 'blog/micahwalter.tumblr.com/posts' , $params);
+		$GLOBALS['smarty']->assign('posts', $posts);
 	}
 		
 	#

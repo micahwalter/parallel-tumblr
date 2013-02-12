@@ -31,7 +31,7 @@
 		$sql = "SELECT * FROM TumblrUsers WHERE tumblr_username='{$enc_username}'";
 		return db_single(db_fetch($sql));
 	}
-
+	
 	#################################################################
 
 	# This creates rows in both the 'users' and 'tumblrUsers' tables

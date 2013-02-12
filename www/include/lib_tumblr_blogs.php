@@ -9,6 +9,18 @@
 		$sql = "SELECT * FROM TumblrBlogs WHERE name='{$enc_blogname}'";
 		return db_single(db_fetch($sql));
 	}	
+	
+	#################################################################
+	
+	function tumblr_blogs_get_primary_blog($tumblr_user_id){
+		
+		$enc_user_id = AddSlashes($tumblr_user_id);
+		
+		$sql = "SELECT url FROM TumblrBlogs WHERE user_id='{$enc_user_id}' AND TumblrBlogs.primary='1'";
+		return db_single(db_fetch($sql));
+	}
+
+	
 
 	#################################################################
 
