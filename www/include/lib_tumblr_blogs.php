@@ -63,6 +63,16 @@
 
 		return $rsp;
 	}
+	
+	#################################################################
+
+	function tumblr_blogs_get_by_user_id($user_id){
+
+		$enc_id = AddSlashes($user_id);
+
+		$sql = "SELECT * FROM TumblrBlogs WHERE user_id='{$enc_id}'";
+		return db_fetch($sql);
+	}
 
 	#################################################################
 	
@@ -124,17 +134,6 @@
 			} 
 		}
 		return 0;
-	}
-	
-	#################################################################
-
-	function tumblr_blogs_get_by_user_id($user_id){
-
-		$enc_id = AddSlashes($user_id);
-
-		$sql = "SELECT * FROM TumblrBlogs WHERE user_id='{$enc_id}'";
-		return db_fetch($sql);
-	}
-	
+	}	
 	
 ?>

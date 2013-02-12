@@ -65,7 +65,7 @@
 	
 	#################################################################
 		
-	function tumblr_api_call($access_token, $method, $params = NULL){
+	function tumblr_api_get_call($access_token, $method, $params = NULL){
 		
 		session_start();
 
@@ -80,7 +80,31 @@
 		if (200 == $tum_oauth->http_code) {
 		  // good to go
 		} else {
-		  die('Unable to get info');
+		  die('Unable to get info: ' . print_r($tum_oauth));
+		}
+			
+		return $api_response;	
+		
+	}
+
+	#################################################################
+		
+	function tumblr_api_post_call($access_token, $method, $params = NULL){
+		
+		session_start();
+
+		$consumer_key = $GLOBALS['cfg']['tumblr_api_key'];
+		$consumer_secret = $GLOBALS['cfg']['tumblr_api_secret'];
+
+		$tum_oauth = new TumblrOAuth($consumer_key, $consumer_secret, $access_token['oauth_token'], $access_token['oauth_token_secret']);
+
+		$api_response = $tum_oauth->post($method, $params);
+
+		// Check for an error.
+		if (200 == $tum_oauth->http_code) {
+		  // good to go
+		} else {
+		  die('Unable to get info: '. $tum_oauth->http_code);
 		}
 			
 		return $api_response;	
