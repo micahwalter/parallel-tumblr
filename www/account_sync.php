@@ -8,6 +8,7 @@
 	loadlib("tumblr_blogs");
 	loadlib("tumblr_following");
 	loadlib("tumblr_followers");
+	loadlib("tumblr_posts");
 	loadlib("tumblr_api");
 
 	$GLOBALS['smarty']->assign('page_title', 'Sync');
@@ -67,11 +68,35 @@
 			$rsp = tumblr_followers_sync_followers($followers, $userinfo->response->user->blogs[$i]->name);
 			$offset = $offset + 20;
 			};
+			
+			$offset = 0;
+			$api_key = $GLOBALS['cfg']['tumblr_api_key'];
+			$params = array(
+				'api_key' => $api_key,
+				'offset' => $offset,
+				'limit' => 20
+			);			
+			
+			$posts = tumblr_api_get_call($access_token, 'blog/' . $base_hostname . 'posts' , $params);
+			$total_posts = $posts->response->blog->posts;
+			
+			while($offset < $total_posts) {	
+				$params = array(
+					'api_key' => $api_key,
+					'offset' => $offset,
+					'limit' => 20
+				);
+			$posts = tumblr_api_get_call($access_token, 'blog/' . $base_hostname . 'posts' , $params);
+			$rsp = tumblr_posts_sync_posts($posts);
+			$offset = $offset + 20;
+			}
+			
 			$i++;
 		};		
 		
 		
-		###### get blog-info
+				
+		###### get avatar
 		$params = array(
 			'api_key' => $api_key,
 		);
@@ -80,13 +105,8 @@
 		$avatar = $avatar->response->avatar_url;		
 		$GLOBALS['smarty']->assign('userinfo', $avatar);
 		
-		$params = array(
-			'api_key' => $api_key,
-			'notes_info' => 'true'
-		);
 		
-		$posts = tumblr_api_get_call($access_token, 'blog/micahwalter.tumblr.com/posts' , $params);
-		$GLOBALS['smarty']->assign('posts', $posts);
+		$GLOBALS['smarty']->assign('posts', $rsp);
 	}
 		
 	#

@@ -94,21 +94,21 @@ DROP TABLE IF EXISTS `TumblrPosts`;
 
 CREATE TABLE `TumblrPosts` (
 	`artisanal_id` int(64) unsigned,
+	`post_id` bigint(64) unsigned,
 	`blog_name` varchar(255) NOT NULL,
-	`post_id` int(11) UNSIGNED NOT NULL,
 	`post_url` varchar(255) NOT NULL,
 	`slug` varchar(255) NOT NULL,
 	`type` varchar(10) NOT NULL,
-	`timestamp` int(11) UNSIGNED NOT NULL,
+	`timestamp` int(32) UNSIGNED NOT NULL,
 	`date` varchar(10) NOT NULL,
 	`format` varchar(10) NOT NULL,
-	`reblog_key` varchar(10) NOT NULL,
+	`reblog_key` varchar(20) NOT NULL,
 	`bookmarklet` varchar(10) NOT NULL,
 	`mobile` varchar(10) NOT NULL,
 	`source_url` varchar(255) NOT NULL,
 	`source_title` varchar(255) NOT NULL,
 	`liked` varchar(10) NOT NULL,
-	`note_count` int(11) UNSIGNED NOT NULL,
+	`note_count` int(32) UNSIGNED NOT NULL,
 	`state` varchar(10) NOT NULL,
 	`short_url` varchar(255) NOT NULL,
 	`image_permalink` varchar(255) NOT NULL,
@@ -121,6 +121,6 @@ CREATE TABLE `TumblrPosts` (
 	`description` text NOT NULL,
 	`dialogue` text NOT NULL,
 	PRIMARY KEY (`post_id`),
-    UNIQUE KEY `post_id` (`post_id`)
+    UNIQUE KEY `by_post_id` (`post_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
