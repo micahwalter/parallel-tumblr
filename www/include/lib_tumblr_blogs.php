@@ -1,5 +1,7 @@
 <?php
 
+	loadlib("artisanal_integers");
+
 	#################################################################
 
 	function tumblr_blogs_get_by_name($blogname){
@@ -89,7 +91,7 @@
 	#################################################################
 	
 	function tumblr_blogs_sync_blogs($userinfo){
-		
+				
 		$blogs = $userinfo->response->user->blogs;
 		
 		foreach ($blogs as $element ){
@@ -97,7 +99,11 @@
 			$blog = tumblr_blogs_get_by_name($element->name);
 			
 			if(! $blog ) {
+				$provider = 'brooklyn';
+				$artisanal = artisanal_integers_create($provider);
+				
 				$rsp = tumblr_blogs_create_blog(array(
+					'artisanal_id' => $artisanal['integer'],
 					'user_id' => $GLOBALS['cfg']['user']['id'],
 					'name' => $element->name,
 					'url' => $element->url,

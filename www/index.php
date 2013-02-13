@@ -7,6 +7,7 @@
 	loadlib("tumblr_api");
 	loadlib("tumblr_users");
 	loadlib("tumblr_blogs");
+	loadlib("artisanal_integers");
 
 	#
 	# this is so we can test the logging output
@@ -52,7 +53,6 @@
 		$avatar = tumblr_api_get_avatar($access_token, 'blog/' . $base_hostname . 'avatar' , $params );
 		$avatar = $avatar->response->avatar_url;		
 		$GLOBALS['smarty']->assign('avatar', $avatar);
-		
 		
 	}
 	

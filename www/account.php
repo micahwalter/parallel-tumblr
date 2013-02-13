@@ -1,7 +1,7 @@
 <?
 
 	include("include/init.php");
-
+	
 	features_ensure_enabled("signin");
 	login_ensure_loggedin("/account");
 	

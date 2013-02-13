@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `artisanal_id` int(64) unsigned,
   `username` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `deleted` int(10) unsigned NOT NULL,
@@ -30,6 +31,7 @@ DROP TABLE IF EXISTS `TumblrUsers`;
 
 CREATE TABLE `TumblrUsers` (
   `user_id` int(11) UNSIGNED NOT NULL,
+  `artisanal_id` int(64) unsigned,
   `tumblr_username` varchar(20) NOT NULL,
   `following` int(10) UNSIGNED NOT NULL,
   `likes` int(10) UNSIGNED NOT NULL,
@@ -45,6 +47,7 @@ DROP TABLE IF EXISTS `TumblrBlogs`;
 
 CREATE TABLE `TumblrBlogs` (
 	`user_id` int(11) UNSIGNED NOT NULL,
+	`artisanal_id` int(64) unsigned,
 	`name` varchar(255) NOT NULL,
 	`description` varchar(511) NOT NULL,
     `url` varchar(255) NOT NULL,
@@ -90,20 +93,34 @@ CREATE TABLE `TumblrFollowers` (
 DROP TABLE IF EXISTS `TumblrPosts`;
 
 CREATE TABLE `TumblrPosts` (
+	`artisanal_id` int(64) unsigned,
 	`blog_name` varchar(255) NOT NULL,
 	`post_id` int(11) UNSIGNED NOT NULL,
 	`post_url` varchar(255) NOT NULL,
+	`slug` varchar(255) NOT NULL,
 	`type` varchar(10) NOT NULL,
 	`timestamp` int(11) UNSIGNED NOT NULL,
 	`date` varchar(10) NOT NULL,
-	format
-	reblog_key
-	bookmarklet
-	mobile
-	source_url
-	source_title
-	liked
-	state
-	
+	`format` varchar(10) NOT NULL,
+	`reblog_key` varchar(10) NOT NULL,
+	`bookmarklet` varchar(10) NOT NULL,
+	`mobile` varchar(10) NOT NULL,
+	`source_url` varchar(255) NOT NULL,
+	`source_title` varchar(255) NOT NULL,
+	`liked` varchar(10) NOT NULL,
+	`note_count` int(11) UNSIGNED NOT NULL,
+	`state` varchar(10) NOT NULL,
+	`short_url` varchar(255) NOT NULL,
+	`image_permalink` varchar(255) NOT NULL,
+	`can_reply` varchar(10) NOT NULL,
+	`title` varchar(255) NOT NULL,
+	`body` text NOT NULL,
+	`text` text NOT NULL,
+	`source` varchar(255) NOT NULL,
+	`link_url` varchar(255) NOT NULL,
+	`description` text NOT NULL,
+	`dialogue` text NOT NULL,
+	PRIMARY KEY (`post_id`),
+    UNIQUE KEY `post_id` (`post_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
