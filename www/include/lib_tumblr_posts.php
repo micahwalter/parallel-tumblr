@@ -1,6 +1,7 @@
 <?php
 	
 	loadlib("artisanal_integers");
+	loadlib("tumblr_tags");
 
 	#################################################################
 
@@ -145,5 +146,23 @@
 		return db_single(db_fetch($sql));
 	}
 
+	#################################################################
+	
+	function tumblr_posts_get_posts() {
+				
+		$sql = "SELECT * FROM TumblrPosts ORDER BY timestamp DESC";
+		return db_fetch($sql);
+	}
+	
+	#################################################################
+	
+	function tumblr_posts_get_posts_by_blog_name($blog_name) {
+		
+		$enc_blog_name = AddSlashes($blog_name);
+				
+		$sql = "SELECT * FROM TumblrPosts WHERE blog_name='{$enc_blog_name}' ORDER BY timestamp DESC";
+		return db_fetch($sql);
+	}
+	
 
 ?>

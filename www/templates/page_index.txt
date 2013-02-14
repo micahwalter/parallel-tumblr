@@ -5,9 +5,7 @@
 {if $cfg.user.id}
 	<h1><img src="{$avatar}"/> Welcome, {$cfg.user.username|escape}</h1>
 	<p>You've liked {$tumblr_user.likes} things and you're following {$tumblr_user.following} blogs and your artisanal ID is {$tumblr_user.artisanal_id}</p>
-	
-	{$posts}
-	
+		
 	<ul>
 	{foreach from=$blogs item=blog}
 	    <li><a href="{$blog.url}">{$blog.title}</a> ( {$blog.artisanal_id} )</li>
@@ -21,6 +19,7 @@
 {/if}
     
   </div>
+
 </div>
 
 {include file='inc_foot.txt'}

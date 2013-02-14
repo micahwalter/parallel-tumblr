@@ -1,0 +1,11 @@
+{include file='inc_head.txt' nav_tab='sync followers'}
+
+<div class="container">
+	<h1>Sync Followers</h1>
+	<a href="/account"><<< back to your account page</a>
+	<br /><br />
+
+	<pre>{$followers|@dumper}</pre>
+</div>
+
+{include file='inc_foot.txt'}

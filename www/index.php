@@ -55,9 +55,6 @@
 		$avatar = $avatar->response->avatar_url;		
 		$GLOBALS['smarty']->assign('avatar', $avatar);
 		
-		$post = tumblr_posts_get_by_post_id(42103510138);
-		
-		$GLOBALS['smarty']->assign('posts', $post['body']);
 	}
 	
 	#

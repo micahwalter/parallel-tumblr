@@ -57,8 +57,16 @@ RewriteRule  ^checkcookie$		checkcookie.php	[L]
 
 RewriteRule  ^account$			account.php		[L]
 RewriteRule  ^account/delete$	account_delete.php	[L]
-RewriteRule  ^account/sync		account_sync.php [l]
+# RewriteRule  ^account/sync$		account_sync.php [L]
+RewriteRule  ^account/sync/blogs account_sync_blogs.php [L]
+RewriteRule  ^account/sync/following account_sync_following.php [L]
+RewriteRule  ^account/sync/followers account_sync_followers.php [L]
+RewriteRule  ^account/sync/posts account_sync_posts.php [L]
 
 # General pages
 
 RewriteRule  ^about$			about.php 		[L,QSA]
+
+# Posts
+
+RewriteRule  ^posts(/page([0-9]+))?/?$  			posts.php?page=$2&%{QUERY_STRING}	[L]

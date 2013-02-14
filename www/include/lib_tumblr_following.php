@@ -96,6 +96,16 @@
 		$sql = "SELECT * FROM TumblrFollowing WHERE name='{$enc_blogname}' AND user_id='{$enc_user_id}'";
 		return db_single(db_fetch($sql));
 	}
+
+	#################################################################
+	
+	function tumblr_following_get_by_id($user_id) {
+		
+		$enc_user_id = AddSlashes($user_id);
+		
+		$sql = "SELECT * FROM TumblrFollowing WHERE user_id='{$enc_user_id}'";
+		return db_fetch($sql);
+	}
 	
 
 ?>

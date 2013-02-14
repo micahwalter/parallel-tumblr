@@ -151,7 +151,7 @@
 				
 			} 
 		}
-		return 0;
+		return $rsp;
 	}	
 	
 ?>

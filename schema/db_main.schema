@@ -93,7 +93,7 @@ CREATE TABLE `TumblrFollowers` (
 DROP TABLE IF EXISTS `TumblrPosts`;
 
 CREATE TABLE `TumblrPosts` (
-	`artisanal_id` int(64) unsigned,
+	`artisanal_id` bigint(64) unsigned,
 	`post_id` bigint(64) unsigned,
 	`blog_name` varchar(255) NOT NULL,
 	`post_url` varchar(255) NOT NULL,
@@ -124,3 +124,11 @@ CREATE TABLE `TumblrPosts` (
     UNIQUE KEY `by_post_id` (`post_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `TumblrTags`;
+
+CREATE TABLE `TumblrTags` (
+	`artisanal_id` bigint(64) unsigned,
+	`tag` bigint(64) unsigned,
+	PRIMARY KEY (`artisanal_id`),
+	UNIQUE KEY `by_artisanal_id` (`artisanal_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

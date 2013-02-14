@@ -1,0 +1,18 @@
+{include file='inc_head.txt' nav_tab='posts'}
+
+<div class="container">
+	<h1>Posts</h1>
+
+	<p>This is all the posts</p>
+	
+	<ul class="list-o-things">
+
+	{foreach from=$posts.rows item=rows}
+		<li>{$rows.artisanal_id} | {$rows.post_url}</li>
+		<p>from <a href="{$rows.post_url}">{$rows.blog_name}</a></p>
+	{/foreach}
+	</ul>
+	{include file="inc_pagination.txt"}	
+</div>
+
+{include file='inc_foot.txt'}

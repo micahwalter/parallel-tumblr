@@ -97,5 +97,14 @@
 		return db_single(db_fetch($sql));
 	}
 	
+	#################################################################
+	
+	function tumblr_followers_get_by_blog_name($blogname) {
+		
+		$enc_blogname = AddSlashes($blogname);
+		
+		$sql = "SELECT * FROM TumblrFollowers WHERE blog_name='{$enc_blogname}'";
+		return db_fetch($sql);
+	}
 
 ?>

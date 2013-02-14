@@ -1,0 +1,12 @@
+{include file='inc_head.txt' nav_tab='sync blogs'}
+
+<div class="container">
+	<h1>Sync Blogs</h1>
+	<a href="/account"><<< back to your account page</a>
+	<br /><br />
+
+	<pre>{$rsp|@dumper}</pre>
+	<pre>{$blogs|@dumper}</pre>
+</div>
+
+{include file='inc_foot.txt'}
