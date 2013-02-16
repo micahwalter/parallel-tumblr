@@ -9,6 +9,7 @@
 	loadlib("tumblr_blogs");
 	loadlib("artisanal_integers");
 	loadlib('tumblr_posts');
+	loadlib("tumblr_following");
 
 	#
 	# this is so we can test the logging output
@@ -54,7 +55,10 @@
 		$avatar = tumblr_api_get_avatar($access_token, 'blog/' . $base_hostname . 'avatar' , $params );
 		$avatar = $avatar->response->avatar_url;		
 		$GLOBALS['smarty']->assign('avatar', $avatar);
-				
+			
+		$rsp = tumblr_following_get_by_id($GLOBALS['cfg']['user']['id']);
+
+		$GLOBALS['smarty']->assign('following', $rsp);		
 	}
 	
 	#

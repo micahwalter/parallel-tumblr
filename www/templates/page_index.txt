@@ -20,6 +20,10 @@
     
   </div>
 
+	{foreach from=$following.rows item=rows}
+	    <a href="{$rows.url}"><img src="{$rows.avatar_url}" /></a>
+	{/foreach}
+
 </div>
 
 {include file='inc_foot.txt'}
