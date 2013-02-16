@@ -3,7 +3,7 @@
 <div class="container">
 	<h1>Following</h1>
 
-	<p>Your'e following all these blogs</p>
+	<p>You're following all these blogs</p>
 	
 
 	{foreach from=$following.rows item=rows}
