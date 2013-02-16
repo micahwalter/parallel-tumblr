@@ -158,6 +158,16 @@
 
 	#################################################################
 	
+	function tumblr_posts_get_posts_by_blog_id($blog_id, $more=array()) {
+		
+		$enc_blog_id = AddSlashes($blog_id);
+				
+		$sql = "SELECT * FROM TumblrPosts WHERE blog_artisanal_id='{$enc_blog_id}' ORDER BY timestamp DESC";
+		return db_fetch_paginated($sql, $more);
+	}
+
+	#################################################################
+	
 	function tumblr_posts_get_from_url() {
 		
 		if ($id = get_int64("id")){

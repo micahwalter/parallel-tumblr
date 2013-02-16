@@ -1,11 +1,8 @@
-{include file='inc_head.txt' nav_tab='posts'}
+{include file='inc_head.txt' nav_tab='blog'}
 
 <div class="container">
-	<h1>Posts</h1>
-
-	<p>This is all the posts</p>
+	<h1>Blog</h1>
 	
-
 	{foreach from=$posts.rows item=rows}
 	<div class="well well-small">
 		<h3>{$rows.title}</h3>
@@ -17,7 +14,8 @@
 		<p><small>{$rows.date} | notes: ({$rows.note_count}) | <a href="{$rows.short_url}">{$rows.short_url}</a> from <a href="{$rows.post_url}">{$rows.blog_name}</a></small></p>
 		</div>
 	{/foreach}
-	{include file="inc_pagination.txt"}	
+	{include file="inc_pagination.txt"}
+	
 </div>
 
 {include file='inc_foot.txt'}
