@@ -2,6 +2,7 @@
 	
 	loadlib("artisanal_integers");
 	loadlib("tumblr_tags");
+	loadlib("tumblr_photos");
 
 	#################################################################
 
@@ -52,6 +53,9 @@
 				$provider = 'brooklyn';
 				$new_artisanal = artisanal_integers_create($provider);
 				
+				$tags = tumblr_tags_sync_tags($element->tags);
+				# $photos = tumblr_photos_sync_photos($element->photos);
+				
 				$rsp = tumblr_posts_create_post(array(
 					'post_artisanal_id' => $new_artisanal['integer'],
 					'blog_artisanal_id' => $blog_artisanal_id,
@@ -83,6 +87,9 @@
 					'dialogue' => $element->dialog
 				)); 
 			} else {
+				$tags = tumblr_tags_sync_tags($element->tags);
+				# $photos = tumblr_photos_sync_photos($element->photos);
+				
 				$rsp = tumblr_posts_update_post(array(
 					'blog_name' => $element->blog_name,
 					'post_id' => $element->id,

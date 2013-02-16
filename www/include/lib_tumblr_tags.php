@@ -28,8 +28,8 @@
 			$hash[$k] = AddSlashes($v);
 		}
 
-		$post_id = AddSlashes($tag['artisanal_id']);
-		$where = "artisanal_id='{$artisanal_id}'";
+		$tag_artisanal_id = AddSlashes($tag['tag_artisanal_id']);
+		$where = "tag_artisanal_id='{$tag_artisanal_id}'";
 
 		$rsp = db_update('TumblrTags', $hash, $where);
 
@@ -54,7 +54,7 @@
 					$artisanal = artisanal_integers_create($provider);
 				
 					$rsp = tumblr_tags_create_tag(array(
-						'artisanal_id' => $artisanal['integer'],
+						'tag_artisanal_id' => $artisanal['integer'],
 						'tag' => $element
 						)); 
 				} else {
@@ -73,7 +73,7 @@
 		
 		$enc_artisinal_id = AddSlashes($artisinal_id);
 		
-		$sql = "SELECT * FROM TumblrTags WHERE artisinal_id='{$enc_artisinal_id}'";
+		$sql = "SELECT * FROM TumblrTags WHERE tag_artisinal_id='{$enc_artisinal_id}'";
 		return db_single(db_fetch($sql));
 	}
 
@@ -84,7 +84,7 @@
 		$enc_tag = AddSlashes($tag);
 		
 		$sql = "SELECT * FROM TumblrTags WHERE tag='{$enc_tag}'";
-		return db_fetch($sql);
+		return db_single(db_fetch($sql));
 	}
 
 	#################################################################
