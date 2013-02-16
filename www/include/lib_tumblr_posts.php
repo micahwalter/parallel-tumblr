@@ -130,6 +130,16 @@
 
 	#################################################################
 	
+	function tumblr_posts_get_by_artisanal_id($artisanal_id) {
+		
+		$enc_artisanal_id = AddSlashes($artisanal_id);
+		
+		$sql = "SELECT * FROM TumblrPosts WHERE post_artisanal_id='{$enc_artisanal_id}'";
+		return db_single(db_fetch($sql));
+	}
+
+	#################################################################
+	
 	function tumblr_posts_get_posts($more=array()) {
 				
 		$sql = "SELECT * FROM TumblrPosts ORDER BY timestamp DESC";
@@ -144,6 +154,17 @@
 				
 		$sql = "SELECT * FROM TumblrPosts WHERE blog_name='{$enc_blog_name}' ORDER BY timestamp DESC";
 		return db_fetch($sql);
+	}
+
+	#################################################################
+	
+	function tumblr_posts_get_from_url() {
+		
+		if ($id = get_int64("id")){
+			$post = tumblr_posts_get_by_artisanal_id($id);
+		}
+		
+		return $post;	
 	}
 	
 

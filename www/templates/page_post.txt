@@ -1,0 +1,12 @@
+{include file='inc_head.txt' nav_tab='post'}
+
+<div class="container">
+	<h1>Post</h1>
+
+	<p>This is a post</p>
+	
+	{$post|@dumper}
+	
+</div>
+
+{include file='inc_foot.txt'}
