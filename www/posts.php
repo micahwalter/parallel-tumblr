@@ -10,7 +10,7 @@
 	login_ensure_loggedin("/account");
 	
 	$more = array(
-		'per_page' => 3
+		'per_page' => 10
 	);
 
 	if ($page = get_int32("page")){

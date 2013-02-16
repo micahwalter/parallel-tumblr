@@ -67,6 +67,7 @@ RewriteRule  ^account/sync/tags account_sync_tags.php [L]
 # General pages
 
 RewriteRule  ^about$			about.php 		[L,QSA]
+RewriteRule  ^following$		following.php 		[L,QSA]
 
 # Posts
 

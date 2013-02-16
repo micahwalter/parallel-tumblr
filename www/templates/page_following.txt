@@ -1,0 +1,17 @@
+{include file='inc_head.txt' nav_tab='following'}
+
+<div class="container">
+	<h1>Following</h1>
+
+	<p>Your'e following all these blogs</p>
+	
+
+	{foreach from=$following.rows item=rows}
+	<div class="well well-small">
+		<h3>{$rows.name}</h3>
+		<a href="{$rows.url}">{$rows.url}</a>
+		</div>
+	{/foreach}
+</div>
+
+{include file='inc_foot.txt'}

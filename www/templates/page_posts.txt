@@ -7,6 +7,7 @@
 	
 
 	{foreach from=$posts.rows item=rows}
+	<div class="well well-small">
 		<h3>{$rows.title}</h3>
 		{$rows.post_artisanal_id} | {$rows.type} | {$rows.title}
 		<small>{$rows.date} | notes: ({$rows.note_count}) | <a href="{$rows.short_url}">{$rows.short_url}</a></small><br />
@@ -16,6 +17,7 @@
 		<br /><br />
 		{$rows.text}
 		<p>from <a href="{$rows.post_url}">{$rows.blog_name}</a></p>
+		</div>
 	{/foreach}
 	{include file="inc_pagination.txt"}	
 </div>
