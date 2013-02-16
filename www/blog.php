@@ -33,7 +33,7 @@
 	# output
 	#
 
-	$pagination_url = "{$GLOBALS['cfg']['site_abs_root_url']}";
+	$pagination_url = "{$GLOBALS['cfg']['site_abs_root_url']}/blog/$id/";
 	$GLOBALS['smarty']->assign("pagination_url", $pagination_url);
 
 	$smarty->display('page_blog.txt');
