@@ -21,7 +21,7 @@
   </div>
 
 	{foreach from=$following.rows item=rows}
-	    <a href="{$rows.url}"><img src="{$rows.avatar_url}" /></a>
+	    <a href="{$rows.url}" title="{$rows.name}"><img src="{$rows.avatar_url}" /></a>
 	{/foreach}
 
 </div>
