@@ -44,6 +44,17 @@
 		
 		foreach ($blogs as $element ){
 			
+			$api_key = $GLOBALS['cfg']['tumblr_api_key'];
+
+			$params = array(
+				'api_key' => $api_key,
+			);
+
+			$regex = '/(?<!href=["\'])http:\/\//';
+			$base_hostname = preg_replace($regex, '', $element->url);
+
+			$avatar = tumblr_api_get_avatar($access_token, 'blog/' . $base_hostname . 'avatar' , $params );
+			
 			$following = tumblr_following_get_by_name_and_id($element->name, $GLOBALS['cfg']['user']['id']);
 			
 			if(! $following ) {
@@ -52,6 +63,7 @@
 					'user_artisanal_id' => $artisanal_id,
 					'name' => $element->name,
 					'url' => $element->url,
+					'avatar_url' => $avatar->response->avatar_url,
 					'updated' => $element->updated
 				
 				)); 
@@ -61,6 +73,7 @@
 					'user_artisanal_id' => $artisanal_id,
 					'name' => $element->name,
 					'url' => $element->url,
+					'avatar_url' => $avatar->response->avatar_url,
 					'updated' => $element->updated
 				));
 				
