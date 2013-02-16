@@ -8,7 +8,7 @@
 		
 	<ul>
 	{foreach from=$blogs item=blog}
-	    <li><a href="{$blog.url}">{$blog.title}</a> ( {$blog.artisanal_id} )</li>
+	    <li><a href="{$blog.url}">{$blog.title}</a> ( {$blog.blog_artisanal_id} )</li>
 	{/foreach}
 	</ul>
 		

@@ -40,12 +40,6 @@
 			return null;
 		}
 
-		# $cache_key = "tumblr_user_{$user['tumblr_id']}";
-		# cache_set($cache_key, $user, "cache locally");
-
-		$cache_key = "tumblr_blog_{$user['id']}";
-		cache_set($cache_key, $user, "cache locally");
-
 		return $blog;
 	}
 	
@@ -64,17 +58,6 @@
 
 		$rsp = db_update('TumblrBlogs', $hash, $where);
 
-		if ($rsp['ok']){
-
-			#$tumblr_blogs = array_merge($tumblr_blogs, $update);
-
-			# $cache_key = "tumblr_user_{$tumblr_user['tumblr_id']}";
-			# cache_unset($cache_key);
-
-			$cache_key = "tumblr_blogs_{$tumblr_blogs['user_id']}";
-			cache_unset($cache_key);
-		}
-
 		return $rsp;
 	}
 	
@@ -90,7 +73,7 @@
 
 	#################################################################
 	
-	function tumblr_blogs_sync_blogs($userinfo){
+	function tumblr_blogs_sync_blogs($userinfo, $artisanal_id){
 				
 		$blogs = $userinfo->response->user->blogs;
 		
@@ -100,11 +83,12 @@
 			
 			if(! $blog ) {
 				$provider = 'brooklyn';
-				$artisanal = artisanal_integers_create($provider);
+				$new_artisanal = artisanal_integers_create($provider);
 				
 				$rsp = tumblr_blogs_create_blog(array(
-					'artisanal_id' => $artisanal['integer'],
+					'blog_artisanal_id' => $new_artisanal['integer'],
 					'user_id' => $GLOBALS['cfg']['user']['id'],
+					'user_artisanal_id' => $artisanal_id,
 					'name' => $element->name,
 					'url' => $element->url,
 					'followers' => $element->followers,
@@ -128,6 +112,7 @@
 			} else {
 				$rsp = tumblr_blogs_update_blog(array(
 					'user_id' => $GLOBALS['cfg']['user']['id'],
+					'user_artisanal_id' => $artisanal_id,
 					'name' => $element->name,
 					'url' => $element->url,
 					'followers' => $element->followers,

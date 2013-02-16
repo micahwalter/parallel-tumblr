@@ -90,16 +90,6 @@
 
 		$rsp = db_insert('TumblrUsers', $hash);
 
-		if (! $rsp['ok']){
-			return null;
-		}
-
-		# $cache_key = "tumblr_user_{$user['tumblr_id']}";
-		# cache_set($cache_key, $user, "cache locally");
-
-		$cache_key = "tumblr_user_{$user['id']}";
-		cache_set($cache_key, $user, "cache locally");
-
 		return $user;
 	}
 
@@ -117,17 +107,6 @@
 		$where = "user_id='{$enc_id}'";
 
 		$rsp = db_update('TumblrUsers', $hash, $where);
-
-		if ($rsp['ok']){
-
-			$tumblr_user = array_merge($tumblr_user, $update);
-
-			# $cache_key = "tumblr_user_{$tumblr_user['tumblr_id']}";
-			# cache_unset($cache_key);
-
-			$cache_key = "tumblr_user_{$tumblr_user['user_id']}";
-			cache_unset($cache_key);
-		}
 
 		return $rsp;
 	}

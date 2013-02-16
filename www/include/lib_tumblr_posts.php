@@ -15,16 +15,6 @@
 
 		$rsp = db_insert('TumblrPosts', $hash);
 
-		if (! $rsp['ok']){
-			return null;
-		}
-
-		# $cache_key = "tumblr_user_{$user['tumblr_id']}";
-		# cache_set($cache_key, $user, "cache locally");
-
-		$cache_key = "tumblr_blog_{$user['id']}";
-		cache_set($cache_key, $user, "cache locally");
-
 		return $post;
 		
 	}
@@ -44,22 +34,13 @@
 
 		$rsp = db_update('TumblrPosts', $hash, $where);
 
-		if ($rsp['ok']){
-
-			# $cache_key = "tumblr_user_{$tumblr_user['tumblr_id']}";
-			# cache_unset($cache_key);
-
-			$cache_key = "tumblr_blogs_{$tumblr_blogs['user_id']}";
-			cache_unset($cache_key);
-		}
-
 		return $rsp;
 		
 	}
 
 	#################################################################
 
-	function tumblr_posts_sync_posts($posts){
+	function tumblr_posts_sync_posts($posts, $blog_artisanal_id){
 
 		$blog_posts = $posts->response->posts;
 		
@@ -69,10 +50,11 @@
 			
 			if(! $post ) {
 				$provider = 'brooklyn';
-				$artisanal = artisanal_integers_create($provider);
+				$new_artisanal = artisanal_integers_create($provider);
 				
 				$rsp = tumblr_posts_create_post(array(
-					'artisanal_id' => $artisanal['integer'],
+					'post_artisanal_id' => $new_artisanal['integer'],
+					'blog_artisanal_id' => $blog_artisanal_id,
 					'blog_name' => $element->blog_name,
 					'post_id' => $element->id,
 					'post_url'=> $element->post_url,
@@ -148,10 +130,10 @@
 
 	#################################################################
 	
-	function tumblr_posts_get_posts() {
+	function tumblr_posts_get_posts($more=array()) {
 				
 		$sql = "SELECT * FROM TumblrPosts ORDER BY timestamp DESC";
-		return db_fetch($sql);
+		return db_fetch_paginated($sql, $more);
 	}
 	
 	#################################################################

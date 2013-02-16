@@ -62,6 +62,7 @@ RewriteRule  ^account/sync/blogs account_sync_blogs.php [L]
 RewriteRule  ^account/sync/following account_sync_following.php [L]
 RewriteRule  ^account/sync/followers account_sync_followers.php [L]
 RewriteRule  ^account/sync/posts account_sync_posts.php [L]
+RewriteRule  ^account/sync/tags account_sync_tags.php [L]
 
 # General pages
 

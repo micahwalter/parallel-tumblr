@@ -5,13 +5,18 @@
 
 	<p>This is all the posts</p>
 	
-	<ul class="list-o-things">
 
 	{foreach from=$posts.rows item=rows}
-		<li>{$rows.artisanal_id} | {$rows.post_url}</li>
+		<h3>{$rows.title}</h3>
+		{$rows.post_artisanal_id} | {$rows.type} | {$rows.title}
+		<small>{$rows.date} | notes: ({$rows.note_count}) | <a href="{$rows.short_url}">{$rows.short_url}</a></small><br />
+		<a href="{$rows.image_permalink}" />{$rows.image_permalink}</a><br />
+		<br /><br />
+		{$rows.body}
+		<br /><br />
+		{$rows.text}
 		<p>from <a href="{$rows.post_url}">{$rows.blog_name}</a></p>
 	{/foreach}
-	</ul>
 	{include file="inc_pagination.txt"}	
 </div>
 

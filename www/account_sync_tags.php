@@ -8,7 +8,7 @@
 	loadlib("tumblr_api");
 	loadlib("tumblr_users");
 	loadlib("tumblr_blogs");
-	loadlib("tumblr_posts");
+	loadlib("tumblr_tags");
 	
 	features_ensure_enabled("signin");
 	login_ensure_loggedin("/account");
@@ -28,7 +28,7 @@
 	$tumblr_blogs = tumblr_blogs_get_by_user_id($GLOBALS['cfg']['user']['id']);
 	
 	$blogs_count = count($tumblr_blogs['rows']);
-		
+
 	$i = 0;
 	while ($i < $blogs_count ) {
 		$regex = '/(?<!href=["\'])http:\/\//';
@@ -53,24 +53,18 @@
 			);
 
 		$posts = tumblr_api_get_call($access_token, 'blog/' . $base_hostname . 'posts' , $params );
-		$rsp = tumblr_posts_sync_posts($posts, $tumblr_blogs['rows'][$i]['blog_artisanal_id']);
+		$all_the_tags[$i] = $posts->response->posts;
+		# $rsp = tumblr_tags_sync_tags($posts->response->posts);
 		$offset = $offset + 20;
 		};
 		$i++;
 	}
 
-	
-	$i = 0;
-	while ($i < $blogs_count ) {		
 
-		$all_the_posts[$i] = tumblr_posts_get_posts_by_blog_name($tumblr_blogs['rows'][$i]['name']);
-		$i++;
-	}
-	
-	$GLOBALS['smarty']->assign('all_the_posts', $all_the_posts);
+	$GLOBALS['smarty']->assign('all_the_tags', $all_the_tags);
 		
 	#
 	# output
 	#
 
-	$smarty->display('page_account_sync_posts.txt');
+	$smarty->display('page_account_sync_tags.txt');

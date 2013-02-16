@@ -54,7 +54,7 @@
 		$avatar = tumblr_api_get_avatar($access_token, 'blog/' . $base_hostname . 'avatar' , $params );
 		$avatar = $avatar->response->avatar_url;		
 		$GLOBALS['smarty']->assign('avatar', $avatar);
-		
+				
 	}
 	
 	#

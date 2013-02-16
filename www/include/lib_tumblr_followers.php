@@ -12,16 +12,6 @@
 
 		$rsp = db_insert('TumblrFollowers', $hash);
 
-		if (! $rsp['ok']){
-			return null;
-		}
-
-		# $cache_key = "tumblr_user_{$user['tumblr_id']}";
-		# cache_set($cache_key, $user, "cache locally");
-
-		$cache_key = "tumblr_blog_{$user['id']}";
-		cache_set($cache_key, $user, "cache locally");
-
 		return $blog;
 	}
 	
@@ -42,15 +32,6 @@
 		$where = $where + "AND name='{$enc_name}'";
 
 		$rsp = db_update('TumblrFollowers', $hash, $where);
-
-		if ($rsp['ok']){
-
-			# $cache_key = "tumblr_user_{$tumblr_user['tumblr_id']}";
-			# cache_unset($cache_key);
-
-			$cache_key = "tumblr_blogs_{$tumblr_blogs['user_id']}";
-			cache_unset($cache_key);
-		}
 
 		return $rsp;
 	}

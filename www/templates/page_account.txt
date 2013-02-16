@@ -12,6 +12,7 @@
 		<li><a href="/account/sync/following">Sync following</a></li>
 		<li><a href="/account/sync/followers">Sync followers</a></li>
 		<li><a href="/account/sync/posts">Sync posts</a></li>
+		<li><a href="/account/sync/tags">Sync tags</a></li>
 		
 		
 	</ul>
