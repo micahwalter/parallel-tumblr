@@ -4,11 +4,11 @@
   <div class="hero-unit">
 {if $cfg.user.id}
 	<h1><img src="{$avatar}"/> Welcome, {$cfg.user.username|escape}</h1>
-	<p>You've liked {$tumblr_user.likes} things and you're following {$tumblr_user.following} blogs and your artisanal ID is {$tumblr_user.artisanal_id}</p>
+	<p>You've liked {$tumblr_user.likes} things and you're following {$tumblr_user.following} blogs and your ID is {$cfg.user.id}</p>
 		
 	<ul>
 	{foreach from=$blogs item=blog}
-	    <li><a href="{$cfg.abs_root_url}blog/{$blog.blog_artisanal_id}">{$blog.title}</a></li>
+	    <li><a href="{$cfg.abs_root_url}blog/{$blog.blog_id}">{$blog.title}</a></li>
 	{/foreach}
 	</ul>
 		

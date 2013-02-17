@@ -1,8 +1,7 @@
 DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `artisanal_id` bigint(64) unsigned,
+  `id` bigint(64) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `deleted` int(10) unsigned NOT NULL,
@@ -19,7 +18,7 @@ CREATE TABLE `users` (
 DROP TABLE IF EXISTS `users_password_reset`;
 
 CREATE TABLE `users_password_reset` (
-  `user_id` int(10) unsigned NOT NULL,
+  `user_id` bigint(64) unsigned NOT NULL,
   `reset_code` char(32) DEFAULT NULL,
   `created` int(10) unsigned NOT NULL,
   UNIQUE KEY `by_code` (`reset_code`),
@@ -30,8 +29,7 @@ CREATE TABLE `users_password_reset` (
 DROP TABLE IF EXISTS `TumblrUsers`;
 
 CREATE TABLE `TumblrUsers` (
-  `user_id` int(11) UNSIGNED NOT NULL,
-  `artisanal_id` bigint(64) unsigned,
+  `user_id` bigint(64) UNSIGNED NOT NULL,
   `tumblr_username` varchar(20) NOT NULL,
   `following` int(10) UNSIGNED NOT NULL,
   `likes` int(10) UNSIGNED NOT NULL,
@@ -46,9 +44,8 @@ CREATE TABLE `TumblrUsers` (
 DROP TABLE IF EXISTS `TumblrBlogs`;
 
 CREATE TABLE `TumblrBlogs` (
-	`user_id` int(11) UNSIGNED NOT NULL,
-	`user_artisanal_id` bigint(64) unsigned,
-	`blog_artisanal_id` bigint(64) unsigned,
+	`user_id` bigint(64) UNSIGNED NOT NULL,
+	`blog_id` bigint(64) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`name` varchar(255) NOT NULL,
 	`description` varchar(511) NOT NULL,
     `url` varchar(255) NOT NULL,
@@ -69,14 +66,14 @@ CREATE TABLE `TumblrBlogs` (
 	`ask_anon` int(10) unsigned NOT NULL,
 	`facebook_opengraph_enabled` varchar(1) NOT NULL,
 	PRIMARY KEY (`name`),
-    UNIQUE KEY `by_name` (`name`)
+    UNIQUE KEY `by_name` (`name`),
+	UNIQUE KEY `by_blog_id` (`blog_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `TumblrFollowing`;
 
 CREATE TABLE `TumblrFollowing` (
-	`user_id` int(11) UNSIGNED NOT NULL,
-	`user_artisanal_id` bigint(64) unsigned,
+	`user_id` bigint(64) UNSIGNED NOT NULL,
 	`name` varchar(255) NOT NULL,
 	`url` varchar(255) NOT NULL,
 	`avatar_url` varchar(255) NOT NULL,
@@ -96,9 +93,8 @@ CREATE TABLE `TumblrFollowers` (
 DROP TABLE IF EXISTS `TumblrPosts`;
 
 CREATE TABLE `TumblrPosts` (
-	`blog_artisanal_id` bigint(64) unsigned,
-	`post_id` bigint(64) unsigned,
-	`post_artisanal_id` bigint(64) unsigned,
+	`blog_id` bigint(64) unsigned NOT NULL,
+	`post_id` bigint(64) unsigned NOT NULL AUTO_INCREMENT,
 	`blog_name` varchar(255) NOT NULL,
 	`post_url` varchar(255) NOT NULL,
 	`slug` varchar(255) NOT NULL,
@@ -131,7 +127,7 @@ CREATE TABLE `TumblrPosts` (
 DROP TABLE IF EXISTS `TumblrTags`;
 
 CREATE TABLE `TumblrTags` (
-	`tag_artisanal_id` bigint(64) unsigned,
+	`tag_id` bigint(64) unsigned NOT NULL,
 	`tag` varchar(255) NOT NULL,
 	PRIMARY KEY (`tag`),
 	UNIQUE KEY `by_tag` (`tag`)
@@ -140,14 +136,14 @@ CREATE TABLE `TumblrTags` (
 DROP TABLE IF EXISTS `TumblrPostsTags`;
 
 CREATE TABLE `TumblrPostsTags` (
-	`tag_artisanal_id` bigint(64) unsigned,
-	`post_artisanal_id` bigint(64) unsigned
+	`tag_id` bigint(64) unsigned NOT NULL,
+	`post_id` bigint(64) unsigned NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `TumblrPhotos`;
 
 CREATE TABLE `TumblrPhotos` (
-	`photo_artisanal_id` bigint(64) unsigned,
+	`photo_id` bigint(64) unsigned NOT NULL,
 	`caption` text NOT NULL,
 	`original_size_url` text NOT NULL,
 	`original_width` int(10) unsigned NOT NULL,

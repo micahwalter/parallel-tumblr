@@ -25,9 +25,7 @@
 		
 	$userinfo = tumblr_api_get_call($access_token, 'user/info');		
 		
-	$rsp = tumblr_blogs_sync_blogs($userinfo, $tumblr_user['artisanal_id']);
-
-	$GLOBALS['smarty']->assign('rsp', $rsp);
+	$rsp = tumblr_blogs_sync_blogs($userinfo);
 	
 	$blogs = tumblr_blogs_get_by_user_id($GLOBALS['cfg']['user']['id']);
 	

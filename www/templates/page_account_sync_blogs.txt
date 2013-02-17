@@ -5,7 +5,6 @@
 	<a href="/account"><<< back to your account page</a>
 	<br /><br />
 
-	<pre>{$rsp|@dumper}</pre>
 	<pre>{$blogs|@dumper}</pre>
 </div>
 

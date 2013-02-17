@@ -38,16 +38,12 @@
 	# This creates rows in both the 'users' and 'tumblrUsers' tables
 
 	function tumblr_users_register_user($userinfo, $access_token){
-
-		$provider = 'brooklyn';
-		$artisanal = artisanal_integers_create($provider);
 		
 		$password = random_string(32);
 
 		$email = "{$userinfo->response->user->name}@donotsend-tumblr.com";
 
 		$user = users_create_user(array(
-			"artisanal_id" => $artisanal['integer'],
 			"username" => $userinfo->response->user->name,
 			"email" => $email,
 			"password" => $password,
@@ -58,7 +54,6 @@
 		}
 
 		$tumblr_user = tumblr_users_create_user(array(
-			'artisanal_id' => $artisanal['integer'],
 			'user_id' => $user['user']['id'],
 			'oauth_token' => $access_token['oauth_token'],
 			'oauth_secret' => $access_token['oauth_token_secret'],

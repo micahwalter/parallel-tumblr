@@ -53,7 +53,7 @@
 			);
 
 		$posts = tumblr_api_get_call($access_token, 'blog/' . $base_hostname . 'posts' , $params );
-		$rsp = tumblr_posts_sync_posts($posts, $tumblr_blogs['rows'][$i]['blog_artisanal_id']);
+		$rsp = tumblr_posts_sync_posts($posts, $tumblr_blogs['rows'][$i]['blog_id']);
 		$offset = $offset + 20;
 		};
 		$i++;

@@ -34,7 +34,7 @@
 		);
 		
 		$following = tumblr_api_get_call($access_token, 'user/following', $params );
-		$rsp = tumblr_following_sync_following($following, $tumblr_user['artisanal_id']);
+		$rsp = tumblr_following_sync_following($following);
 		$offset = $offset + 20;
 	};
 	

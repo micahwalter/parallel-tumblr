@@ -73,7 +73,7 @@
 
 	#################################################################
 	
-	function tumblr_blogs_sync_blogs($userinfo, $artisanal_id){
+	function tumblr_blogs_sync_blogs($userinfo){
 				
 		$blogs = $userinfo->response->user->blogs;
 		
@@ -82,13 +82,9 @@
 			$blog = tumblr_blogs_get_by_name($element->name);
 			
 			if(! $blog ) {
-				$provider = 'brooklyn';
-				$new_artisanal = artisanal_integers_create($provider);
 				
 				$rsp = tumblr_blogs_create_blog(array(
-					'blog_artisanal_id' => $new_artisanal['integer'],
 					'user_id' => $GLOBALS['cfg']['user']['id'],
-					'user_artisanal_id' => $artisanal_id,
 					'name' => $element->name,
 					'url' => $element->url,
 					'followers' => $element->followers,
@@ -112,7 +108,6 @@
 			} else {
 				$rsp = tumblr_blogs_update_blog(array(
 					'user_id' => $GLOBALS['cfg']['user']['id'],
-					'user_artisanal_id' => $artisanal_id,
 					'name' => $element->name,
 					'url' => $element->url,
 					'followers' => $element->followers,

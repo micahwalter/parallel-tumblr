@@ -3,6 +3,7 @@
 	loadlib("artisanal_integers");
 	loadlib("tumblr_tags");
 	loadlib("tumblr_photos");
+	loadlib("tumblr_posts_tags");
 
 	#################################################################
 
@@ -41,26 +42,19 @@
 
 	#################################################################
 
-	function tumblr_posts_sync_posts($posts, $blog_artisanal_id){
+	function tumblr_posts_sync_posts($posts, $blog_id){
 
 		$blog_posts = $posts->response->posts;
 		
 		foreach ($blog_posts as $element ){
 			
-			$post = tumblr_posts_get_by_post_id($element->id);
+			$post = tumblr_posts_get_by_post_id($element->post_id);
 			
 			if(! $post ) {
-				$provider = 'brooklyn';
-				$new_artisanal = artisanal_integers_create($provider);
-				
-				$tags = tumblr_tags_sync_tags($element->tags);
-				# $photos = tumblr_photos_sync_photos($element->photos);
 				
 				$rsp = tumblr_posts_create_post(array(
-					'post_artisanal_id' => $new_artisanal['integer'],
-					'blog_artisanal_id' => $blog_artisanal_id,
+					'blog_id' => $blog_id,
 					'blog_name' => $element->blog_name,
-					'post_id' => $element->id,
 					'post_url'=> $element->post_url,
 					'slug' => $element->slug,
 					'type' => $element->type,
@@ -87,12 +81,10 @@
 					'dialogue' => $element->dialog
 				)); 
 			} else {
-				$tags = tumblr_tags_sync_tags($element->tags);
-				# $photos = tumblr_photos_sync_photos($element->photos);
 				
 				$rsp = tumblr_posts_update_post(array(
+					'blog_id' => $blog_id,
 					'blog_name' => $element->blog_name,
-					'post_id' => $element->id,
 					'post_url'=> $element->post_url,
 					'slug' => $element->slug,
 					'type' => $element->type,
@@ -137,16 +129,6 @@
 
 	#################################################################
 	
-	function tumblr_posts_get_by_artisanal_id($artisanal_id) {
-		
-		$enc_artisanal_id = AddSlashes($artisanal_id);
-		
-		$sql = "SELECT * FROM TumblrPosts WHERE post_artisanal_id='{$enc_artisanal_id}'";
-		return db_single(db_fetch($sql));
-	}
-
-	#################################################################
-	
 	function tumblr_posts_get_posts($more=array()) {
 				
 		$sql = "SELECT * FROM TumblrPosts ORDER BY timestamp DESC";
@@ -169,7 +151,7 @@
 		
 		$enc_blog_id = AddSlashes($blog_id);
 				
-		$sql = "SELECT * FROM TumblrPosts WHERE blog_artisanal_id='{$enc_blog_id}' ORDER BY timestamp DESC";
+		$sql = "SELECT * FROM TumblrPosts WHERE blog_id='{$enc_blog_id}' ORDER BY timestamp DESC";
 		return db_fetch_paginated($sql, $more);
 	}
 
@@ -178,7 +160,7 @@
 	function tumblr_posts_get_from_url() {
 		
 		if ($id = get_int64("id")){
-			$post = tumblr_posts_get_by_artisanal_id($id);
+			$post = tumblr_posts_get_by_post_id($id);
 		}
 		
 		return $post;	

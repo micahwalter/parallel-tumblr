@@ -38,7 +38,7 @@
 	
 	#################################################################
 	
-	function tumblr_following_sync_following($following, $artisanal_id){
+	function tumblr_following_sync_following($following){
 		
 		$blogs = $following->response->blogs;
 		
@@ -60,7 +60,6 @@
 			if(! $following ) {
 				$rsp = tumblr_following_create_following(array(
 					'user_id' => $GLOBALS['cfg']['user']['id'],
-					'user_artisanal_id' => $artisanal_id,
 					'name' => $element->name,
 					'url' => $element->url,
 					'avatar_url' => $avatar->response->avatar_url,
@@ -70,7 +69,6 @@
 			} else {
 				$rsp = tumblr_following_update_following(array(
 					'user_id' => $GLOBALS['cfg']['user']['id'],
-					'user_artisanal_id' => $artisanal_id,
 					'name' => $element->name,
 					'url' => $element->url,
 					'avatar_url' => $avatar->response->avatar_url,

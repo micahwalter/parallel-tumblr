@@ -13,7 +13,7 @@
 	
 	$GLOBALS['smarty']->assign('post', $rsp);
 	
-	$GLOBALS['smarty']->assign('page_title', $rsp['post_artisanal_id']);
+	$GLOBALS['smarty']->assign('page_title', $rsp['post_id']);
 	
 	#
 	# output
