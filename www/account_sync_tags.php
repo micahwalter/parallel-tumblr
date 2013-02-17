@@ -52,16 +52,17 @@
 				'limit' => 20
 			);
 
-		$posts = tumblr_api_get_call($access_token, 'blog/' . $base_hostname . 'posts' , $params );
-		# $all_the_tags[$i] = $posts->response->posts;
-		# $rsp = tumblr_tags_sync_tags($posts->response->posts->tags);
-		$offset = $offset + 20;
+			$posts = tumblr_api_get_call($access_token, 'blog/' . $base_hostname . 'posts' , $params );
+		
+			$all_the_tags[$i] = tumblr_tags_sync_tags($posts->response->posts);
+			$offset = $offset + 20;
 		};
+		
 		$i++;
 	}
 
 
-	$GLOBALS['smarty']->assign('all_the_tags', $posts);
+	$GLOBALS['smarty']->assign('all_the_tags', $all_the_tags);
 		
 	#
 	# output

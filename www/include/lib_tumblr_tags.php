@@ -37,26 +37,22 @@
 
 	#################################################################
 
-	function tumblr_tags_sync_tags($tags){
+	function tumblr_tags_sync_tags($posts){
 
-		if (! $tags) {
-			return 0;
-		}
-
-		foreach ($tags as $element){
+		foreach ($posts as $element){
 						
-				$theTag = tumblr_tags_get_by_tag($element);
+			$tags = $element->tags;
 			
-				if(! $theTag ) {
-					$rsp = tumblr_tags_create_tag(array(
-						'tag' => $element
-						)); 
-				} else {
-					$rsp = tumblr_tags_update_tag(array(
-						'tag' => $element	
-					));	
+				foreach($tags as $tag){
+					$checkTag = tumblr_tags_get_by_tag($tag);
+						if(! $checkTag ) {
+							$rsp = tumblr_tags_create_tag(array(
+								'tag' => $tag
+								)); 
+						} 
 				}
-		}
+		}	
+		
 		return $rsp;
 		
 	}
