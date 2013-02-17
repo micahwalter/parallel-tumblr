@@ -1,7 +1,5 @@
 <?php
 	
-	loadlib("artisanal_integers");
-
 	#################################################################
 
 	function tumblr_tags_create_tag($tag){
@@ -28,8 +26,8 @@
 			$hash[$k] = AddSlashes($v);
 		}
 
-		$tag_artisanal_id = AddSlashes($tag['tag_artisanal_id']);
-		$where = "tag_artisanal_id='{$tag_artisanal_id}'";
+		$tag_id = AddSlashes($tag['tag_id']);
+		$where = "tag_id='{$tag_id}'";
 
 		$rsp = db_update('TumblrTags', $hash, $where);
 
@@ -50,11 +48,7 @@
 				$theTag = tumblr_tags_get_by_tag($element);
 			
 				if(! $theTag ) {
-					$provider = 'brooklyn';
-					$artisanal = artisanal_integers_create($provider);
-				
 					$rsp = tumblr_tags_create_tag(array(
-						'tag_artisanal_id' => $artisanal['integer'],
 						'tag' => $element
 						)); 
 				} else {
@@ -65,16 +59,6 @@
 		}
 		return $rsp;
 		
-	}
-
-	#################################################################
-	
-	function tumblr_tags_get_by_artisanal_id($artisinal_id) {
-		
-		$enc_artisinal_id = AddSlashes($artisinal_id);
-		
-		$sql = "SELECT * FROM TumblrTags WHERE tag_artisinal_id='{$enc_artisinal_id}'";
-		return db_single(db_fetch($sql));
 	}
 
 	#################################################################

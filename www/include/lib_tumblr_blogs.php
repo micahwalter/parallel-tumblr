@@ -1,7 +1,5 @@
 <?php
 
-	loadlib("artisanal_integers");
-
 	#################################################################
 
 	function tumblr_blogs_get_by_name($blogname){

@@ -1,7 +1,6 @@
 <?php
 
 	loadlib("random");
-	loadlib("artisanal_integers");
 	
 	#################################################################
 

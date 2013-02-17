@@ -93,8 +93,9 @@ CREATE TABLE `TumblrFollowers` (
 DROP TABLE IF EXISTS `TumblrPosts`;
 
 CREATE TABLE `TumblrPosts` (
+	`id` bigint(64) unsigned NOT NULL AUTO_INCREMENT,
 	`blog_id` bigint(64) unsigned NOT NULL,
-	`post_id` bigint(64) unsigned NOT NULL AUTO_INCREMENT,
+	`post_id` bigint(64) unsigned NOT NULL,
 	`blog_name` varchar(255) NOT NULL,
 	`post_url` varchar(255) NOT NULL,
 	`slug` varchar(255) NOT NULL,
@@ -120,17 +121,17 @@ CREATE TABLE `TumblrPosts` (
 	`link_url` varchar(255) NOT NULL,
 	`description` text NOT NULL,
 	`dialogue` text NOT NULL,
-	PRIMARY KEY (`post_id`),
-    UNIQUE KEY `by_post_id` (`post_id`)
+	PRIMARY KEY (`id`),
+    UNIQUE KEY `by_id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `TumblrTags`;
 
 CREATE TABLE `TumblrTags` (
-	`tag_id` bigint(64) unsigned NOT NULL,
+	`tag_id` bigint(64) unsigned NOT NULL AUTO_INCREMENT,
 	`tag` varchar(255) NOT NULL,
-	PRIMARY KEY (`tag`),
-	UNIQUE KEY `by_tag` (`tag`)
+	PRIMARY KEY (`tag_id`),
+	UNIQUE KEY `by_tag_id` (`tag_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `TumblrPostsTags`;

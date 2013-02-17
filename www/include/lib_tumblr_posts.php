@@ -1,9 +1,6 @@
 <?php
 	
-	loadlib("artisanal_integers");
 	loadlib("tumblr_tags");
-	loadlib("tumblr_photos");
-	loadlib("tumblr_posts_tags");
 
 	#################################################################
 
@@ -48,12 +45,13 @@
 		
 		foreach ($blog_posts as $element ){
 			
-			$post = tumblr_posts_get_by_post_id($element->post_id);
+			$post = tumblr_posts_get_by_post_id($element->id);
 			
 			if(! $post ) {
 				
 				$rsp = tumblr_posts_create_post(array(
 					'blog_id' => $blog_id,
+					'post_id' => $element->id,
 					'blog_name' => $element->blog_name,
 					'post_url'=> $element->post_url,
 					'slug' => $element->slug,
@@ -84,6 +82,7 @@
 				
 				$rsp = tumblr_posts_update_post(array(
 					'blog_id' => $blog_id,
+					'post_id' => $id,
 					'blog_name' => $element->blog_name,
 					'post_url'=> $element->post_url,
 					'slug' => $element->slug,
